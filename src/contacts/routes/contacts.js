@@ -7,6 +7,7 @@ router.get('/:id', function(req, res, next) {
 	//res.send("http yyyy");
 	var id1 = req.params.id;
 	res.json(contactsdb[parseInt(id1)]);
+	res.statusCode(200);
 });
 
 router.post('/', function(req, res, next) {
@@ -16,6 +17,7 @@ router.post('/', function(req, res, next) {
 	obj.phone=req.body.phone;
 	contactsdb[i]=obj;
 	res.send(''+i);
+	res.statusCode(200);+
      i++;
 });
 
