@@ -5,6 +5,8 @@ describe("Contacts Test Suite", function(){
 	var request = require('C:/Program Files/nodejs/node_modules/npm/node_modules/request')
 	var base_url = "http://localhost:3000";
 	var contacts_url = base_url + "/contacts";
+	var idCreated;
+
 
 	describe("hello world", function(){
 
@@ -24,7 +26,6 @@ describe("Contacts Test Suite", function(){
 	});
 
 	describe("create update contact", function(){
-		var idCreated;
 
 		it("should create contact",function(done){
 
@@ -85,16 +86,41 @@ describe("Contacts Test Suite", function(){
 	//TODO: Fill out the test case below that posts a message to a contact
 	// and retrieves it back.
 	describe("post and get message to contact", function(){
+		var m_id;
 
-		xit("should post message to contact", function(done){
+		it("should post message to contact", function(done){
 			//TODO: Write your test case here.
+			var c=new Object();
+			c.msg="hiii";
+			var contact_url = "http://localhost:3000/contacts/";
+			request.post({url:contact_url +idCreated.toString()+"/msg",
+							body: c,
+							json: true
+						},
+		    		    function(error, response, body){
+
+							expect(response.statusCode).toBe(200);
+							//console.log(body);
+							m_id=body;
 			done();
 
 		});
+		});
 
-		xit("should get message for contact", function(done){
+		it("should get message for contact", function(done){
 			//TODO: Write your test case here.
-			done();
+
+			request.get({
+							url: contacts_url + "/" + idCreated.toString()+"/msg/"+m_id,
+							json: true
+						},
+		    		    function(error, response, body){
+
+							expect(response.statusCode).toBe(200);
+							//console.log(body);
+							expect(body).toBe("hiii");
+							done();
+					    });
 
 		});
 
